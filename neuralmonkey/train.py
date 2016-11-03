@@ -39,15 +39,6 @@ def create_config():
     config.add_argument('save_n_best', int, required=False, default=1)
     config.add_argument('overwrite_output_dir', bool, required=False,
                         default=False)
-
-    config.add_section('main')
-    config.add_section('train_data')
-    config.add_section('val_data')
-    config.add_section('bleu')
-    config.add_section('encoder')
-    config.add_section('decoder')
-    config.add_section('decoder_vocabulary')
-    config.add_section('encoder_vocabulary')
     return config
 
 def main():
@@ -62,7 +53,7 @@ def main():
     ## various things like randseed or summarywriter should be set up here
     ## so that graph building can be recorded
     # build all the objects specified in the config
-    cfg.build_model
+    cfg.build_model()
 
     #pylint: disable=no-member,broad-except
     if args.random_seed is not None:
