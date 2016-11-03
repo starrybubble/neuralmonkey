@@ -6,6 +6,7 @@ This is a training script for sequence to sequence learning.
 import sys
 import os
 from shutil import copyfile
+import numpy as np
 
 import tensorflow as tf
 
@@ -53,7 +54,7 @@ def main():
     ## various things like randseed or summarywriter should be set up here
     ## so that graph building can be recorded
     # build all the objects specified in the config
-    cfg.build_model()
+    args = cfg.build_model()
 
     #pylint: disable=no-member,broad-except
     if args.random_seed is not None:
