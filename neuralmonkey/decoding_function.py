@@ -57,6 +57,8 @@ class Attention(object):
             #pylint: disable=invalid-name
             # see comments on disabling invalid names below
             self.v = tf.get_variable("AttnV", [self.attention_vec_size])
+            self.v_bias = tf.get_variable("AttnV_b", [],
+                                          initializer=tf.constant_initializer(0))
 
     def attention(self, query_state):
         """Put attention masks on att_states_reshaped
@@ -89,7 +91,8 @@ class Attention(object):
 
     def get_logits(self, y):
         # Attention mask is a softmax of v^T * tanh(...).
-        return tf.reduce_sum(self.v * tf.tanh(self.hidden_features + y), [2, 3])
+        return tf.reduce_sum(
+            self.v * tf.tanh(self.hidden_features + y), [2, 3]) + self.v_bias
 
 
 class CoverageAttention(Attention):
